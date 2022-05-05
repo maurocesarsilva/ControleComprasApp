@@ -1,0 +1,96 @@
+﻿@if (string.IsNullOrEmpty(_message) is false)
+{
+
+	<div class="modal @_modalDisplay" tabindex="-1" role="dialog" style="display:@_modalDisplay">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					@if (_typeMessage == TypeMessage.Success)
+					{
+						<div class="alert alert-success" role="alert">
+							@_message
+						</div>
+					}
+					else if (_typeMessage == TypeMessage.info)
+					{
+						<div class="alert alert-info" role="alert">
+							@_message
+						</div>
+					}
+					else if (_typeMessage == TypeMessage.Error)
+					{
+						<div class="alert alert-danger" role="alert">
+							@_message
+						</div>
+					}
+
+				</div>
+				<div class="modal-footer">
+					@if (footer is not null)
+					{
+						@footer
+					}
+					else
+					{
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => CloseMessage()">Ok</button>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@if (_showBackdrop)
+{
+	<div class="modal-backdrop fade show"></div>
+}
+
+@code {
+
+	[Parameter]
+	public RenderFragment? footer { get; set; }
+
+	private string _modalDisplay = "none;";
+	private string _modalClass = "";
+	private bool _showBackdrop = false;
+	private string _message;
+	private TypeMessage _typeMessage;
+
+	public void ShowSuccessMessage(string message)
+	{
+		ShowMessage(message, TypeMessage.Success);
+	}
+
+	public void ShowInfoMessage(string message)
+	{
+		ShowMessage(message, TypeMessage.info);
+	}
+
+	public void ShowErrorMessage(string message)
+	{
+		ShowMessage(message, TypeMessage.Error);
+	}
+
+	private void ShowMessage(string message, TypeMessage typeMessage)
+	{
+		_message = message;
+		_typeMessage = typeMessage;
+		_modalDisplay = "block;";
+		_modalClass = "Show";
+		_showBackdrop = true;
+		StateHasChanged();
+	}
+
+	public void CloseMessage()
+	{
+		_modalDisplay = "none";
+		_modalClass = "";
+		_showBackdrop = false;
+		StateHasChanged();
+	}
+
+	enum TypeMessage
+	{
+		Success, info, Error
+	}
+}

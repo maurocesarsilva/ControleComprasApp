@@ -1,0 +1,129 @@
+﻿@page "/cadastrar-nota"
+@inherits CadastrarNotaBehind
+
+<PageTitle>Cadastrar nota</PageTitle>
+
+<Alert @ref="Alert"></Alert>
+
+<Modal @ref="Modal">
+	<Header>
+		<h5>@Nota.Description</h5>
+	</Header>
+	<Body>
+		<div class="row">
+			<EditForm Model="@NotaItens" OnValidSubmit="Save">
+				<DataAnnotationsValidator />
+				<div>
+					<div class="form-control  margin-top2">
+						<label>Produto</label>
+						<div class="input-group">
+							<InputSelect class="form-control form-control-sm" @bind-Value="NotaItens.Product">
+								<option>Selecione</option>
+								@foreach (var product in ListProducts)
+								{
+									<option value="@product.Name">@product.Name</option>
+								}
+							</InputSelect>
+							<a href="/produtos" target="_blank">&nbsp<span class="oi oi-plus"></span></a>
+						</div>
+						<ValidationMessage For="@(() => NotaItens.Product)" />
+					</div>
+
+					<div class="form-control  margin-top2">
+						<label>Quantidade</label>
+						<InputNumber class="form-control" @bind-Value="NotaItens.Quantity" />
+						<ValidationMessage For="@(() => NotaItens.Quantity)" />
+					</div>
+
+					<div class="form-control  margin-top2">
+						<label>Valor</label>
+						<InputNumber class="form-control" @bind-Value="NotaItens.ValorUnitario" />
+						<ValidationMessage For="@(() => NotaItens.ValorUnitario)" />
+					</div>
+
+					<div class="row margin-top2">
+						<div class="col-md-12 col-sm-12">
+							<button type="submit" class="btn btn-primary col-md-4 col-sm-12">Adicionar</button>
+							<button type="button" class="btn btn-danger col-md-4 col-sm-12" @onclick="Clear">Cancelar</button>
+						</div>
+					</div>
+				</div>
+			</EditForm>
+		</div>
+	</Body>
+</Modal>
+
+<div class="card width100">
+	<div class="card-body">
+		<div class="row">
+			<EditForm Model="@Nota" OnValidSubmit="SaveNota">
+				<DataAnnotationsValidator />
+				<div class="margin-top2">
+					<div class="form-control margin-top2">
+						<label class="form-label">Descrição</label>
+						<InputText class="form-control" MaxLength="100" @bind-Value="Nota.Description" />
+						<ValidationMessage For="@(() => Nota.Description)" />
+					</div>
+				</div>
+				<div class="form-control margin-top2">
+					<label>Supermercado</label>
+					<div class="input-group">
+						<InputSelect class="form-control" @bind-Value="Nota.Supermarket">
+							<option>Selecione</option>
+							@foreach (var supermarket in ListSupermarket)
+							{
+								<option value="@supermarket.Name">@supermarket.Name</option>
+							}
+						</InputSelect>
+						<a href="/" target="_blank">&nbsp<span class="oi oi-plus"></span></a>
+					</div>
+					<ValidationMessage For="@(() => Nota.Supermarket)" />
+				</div>
+				<div class="margin-top2">
+					<button type="submit" class="btn btn-success col-md-12 col-sm-12">Salvar Nota</button>
+				</div>
+				<div class="margin-top2">
+					<button type="button" class="btn btn-primary col-md-12 col-sm-12" data-dismiss="modal" @onclick="PrepareModalToSave">Adicionar Item</button>
+				</div>
+				<div class="margin-top2">
+					<h3>Total: @Nota.NotaItens.Sum(s => s.Valor)</h3>
+				</div>
+			</EditForm>
+		</div>
+		<br />
+		<div class="row">
+			<div class="card width100">
+				<div class="card-body">
+
+					<div class="row margin-top2">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Produto</th>
+									<th scope="col">Valor Und</th>
+									<th scope="col">Qtd</th>
+									<th scope="col">Valor Tot</th>
+									<th scope="col">Ações</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Nota.NotaItens)
+								{
+									<tr>
+										<td>@item.Product</td>
+										<td>@item.ValorUnitario</td>
+										<td>@item.Quantity</td>
+										<td>@item.Valor</td>
+										<td>
+											<button class="btn alert-danger" @onclick=" () => RemoveList(item)">Excluir</button>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

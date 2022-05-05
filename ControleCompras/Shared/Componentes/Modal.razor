@@ -1,0 +1,65 @@
+﻿<div class="modal @ModalClass" tabindex="-1" role="dialog" style="display:@ModalDisplay">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			@if (Header is not null)
+			{
+				<div class="modal-header">
+					@Header
+				</div>
+			}
+
+			@if (Body is not null)
+			{
+				<div class="modal-body">
+					@Body
+				</div>
+			}
+
+			@if (Footer is not null)
+			{
+				<div class="modal-footer">
+					@Footer
+				</div>
+			}
+
+		</div>
+	</div>
+</div>
+
+
+@if (ShowBackdrop)
+{
+	<div class="modal-backdrop fade show"></div>
+}
+
+@code {
+
+	[Parameter]
+	public RenderFragment? Header { get; set; }
+
+	[Parameter]
+	public RenderFragment? Body { get; set; }
+
+	[Parameter]
+	public RenderFragment? Footer { get; set; }
+
+	public string ModalDisplay = "none;";
+	public string ModalClass = "";
+	public bool ShowBackdrop = false;
+
+	public void Open()
+	{
+		ModalDisplay = "block;";
+		ModalClass = "Show";
+		ShowBackdrop = true;
+		StateHasChanged();
+	}
+
+	public void Close()
+	{
+		ModalDisplay = "none";
+		ModalClass = "";
+		ShowBackdrop = false;
+		StateHasChanged();
+	}
+}

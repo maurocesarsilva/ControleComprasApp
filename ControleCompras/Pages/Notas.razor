@@ -1,0 +1,68 @@
+﻿@page "/notas"
+@inherits NotasBehind
+
+<Alert @ref="Alert"></Alert>
+
+<Modal @ref="ModalNota">
+	<Header>
+		<h5>Editar nota</h5>
+		<button type="button" class="btn " @onclick="ModalNota.Close">x</button>
+	</Header>
+	<Body>
+		<CadastrarNota ReloadEvent="Reload" Nota="Nota" ModalEdicao="ModalNota" AlertEdicao="Alert"></CadastrarNota>
+	</Body>
+</Modal>
+
+<Modal @ref="ModalDelete">
+	<Header>
+		<h5>Tem certeza que deseja excluir: @Nota.Description</h5>
+	</Header>
+	<Footer>
+		<button class="btn alert-danger" @onclick=" () => ModalDelete.Close()">Cancelar</button>
+		<button class="btn alert-success" @onclick="async () => await Deletar(Nota.Id)">Confirmar</button>
+	</Footer>
+</Modal>
+
+<h3>Cadastro de Notas</h3>
+<div class="card width100">
+	<div class="card-body">
+		<div class="row">
+				<button type="button" class="btn btn-primary col-md-12 col-sm-12" data-dismiss="modal" @onclick="OpenModal">Novo Cadastro</button>
+		</div>
+		<div class="row margin-top2">
+			<div class="card width100">
+				<div class="card-body">
+					<br />
+					<br />
+					<br />
+					<div class="row">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col" class="width25">Date</th>
+									<th scope="col" class="width25">Supermercado</th>
+									<th scope="col" class="width25">Descrição</th>
+									<th scope="col" class="width25">Ações</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in ListNotas)
+								{
+									<tr>
+										<td>@item.Date</td>
+										<td>@item.Supermarket</td>
+										<td>@item.Description</td>
+										<td>
+											<button class="btn alert-danger col-12 col-sm-12 col-md-12" @onclick=" () => ConfirmDelete(item)">Excluir</button>
+											<button class="btn alert-primary col-12 col-sm-12 col-md-12" @onclick=" () => Show(item)">Editar</button>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

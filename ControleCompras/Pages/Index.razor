@@ -1,0 +1,73 @@
+﻿@page "/"
+@inherits IndexBehind
+
+<PageTitle>Supermercado</PageTitle>
+
+<Alert @ref="Alert"></Alert>
+
+<Modal @ref="ModalNewSupermarket">
+	<Header>
+		<h5>@Title</h5>
+	</Header>
+	<Body>
+		<div class="row">
+			<EditForm Model="@Supermarket" OnValidSubmit="Save">
+				<DataAnnotationsValidator />
+				<div>
+					<label class="form-label">Nome</label>
+					<div class="input-group">
+						<InputText class="form-control" @bind-Value="Supermarket.Name" />
+						<button type="submit" class="btn btn-primary">Salvar</button>
+						<button type="button" class="btn btn-danger" @onclick="() => ModalNewSupermarket.Close()">Cancelar</button>
+					</div>
+					<ValidationMessage For="@(() => Supermarket.Name)" />
+				</div>
+			</EditForm>
+		</div>
+	</Body>
+</Modal>
+
+<Modal @ref="ModalDelete">
+	<Header>
+		<h5>Tem certeza que deseja excluir: @Supermarket.Name</h5>
+	</Header>
+	<Footer>
+		<button class="btn alert-danger" @onclick=" () => ModalDelete.Close()">Cancelar</button>
+		<button class="btn alert-success" @onclick="async () => await Delete(Supermarket.Id)">Confirmar</button>
+	</Footer>
+</Modal>
+<h3>Cadastro de Supermercado</h3>
+<div class="card width100">
+	<div class="card-body">
+		<div class="row">
+			<button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="PrepareModalToSave">Novo Cadastro</button>
+		</div>
+
+		<div class="row margin-top2">
+			<div class="card width100">
+				<div class="card-body">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col" class="width70">Nome</th>
+								<th scope="col" class="width30">Ações</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in ListSupermarket)
+							{
+								<tr>
+									<td>@item.Name</td>
+									<td>
+										<button class="btn alert-danger col-12 col-sm-6 col-md-12" @onclick=" () => ConfirmDelete(item)">Excluir</button>
+										<button class="btn alert-success col-12 col-sm-6 col-md-12" @onclick="() => UpdateObject(item)">Editar</button>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

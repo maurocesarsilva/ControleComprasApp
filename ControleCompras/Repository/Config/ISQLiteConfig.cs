@@ -10,7 +10,13 @@ namespace ControleCompras.Repository.Config
 
 		Task Insert(T obj);
 
+		Task InsertOrReplace(T obj);
+
+		Task InsertMany(IEnumerable<T> obj);
+
 		Task Update(T obj);
+
+		Task UpdateMany(IEnumerable<T> obj);
 
 		Task Delete(Guid id);
 	}

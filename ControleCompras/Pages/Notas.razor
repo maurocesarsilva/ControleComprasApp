@@ -5,8 +5,8 @@
 
 <Modal @ref="ModalNota">
 	<Header>
-		<h5>Editar nota</h5>
-		<button type="button" class="btn " @onclick="ModalNota.Close">x</button>
+		<h5>Nota</h5>
+		<button type="button" class="btn btn-danger" @onclick="ModalNota.Close">x</button>
 	</Header>
 	<Body>
 		<CadastrarNota ReloadEvent="Reload" Nota="Nota" ModalEdicao="ModalNota" AlertEdicao="Alert"></CadastrarNota>

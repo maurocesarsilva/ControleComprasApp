@@ -24,7 +24,7 @@
 									<option value="@product.Name">@product.Name</option>
 								}
 							</InputSelect>
-							<a href="/produtos" target="_blank">&nbsp<span class="oi oi-plus"></span></a>
+							<button type="button" @onclick="OpenModalProduct">&nbsp<span class="oi oi-plus"></span></button>
 						</div>
 						<ValidationMessage For="@(() => NotaItens.Product)" />
 					</div>
@@ -53,6 +53,26 @@
 	</Body>
 </Modal>
 
+<Modal @ref="ModalSupermarket">
+	<Header>
+		<h5></h5>
+		<button type="button" class="btn btn-danger" @onclick="ModalSupermarket.Close">x</button>
+	</Header>
+	<Body>
+		<Index></Index>
+	</Body>
+</Modal>
+
+<Modal @ref="ModalProduct">
+	<Header>
+		<h5></h5>
+		<button type="button" class="btn btn-danger" @onclick="ModalProduct.Close">x</button>
+	</Header>
+	<Body>
+		<Produtos></Produtos>
+	</Body>
+</Modal>
+
 <div class="card width100">
 	<div class="card-body">
 		<div class="row">
@@ -75,7 +95,7 @@
 								<option value="@supermarket.Name">@supermarket.Name</option>
 							}
 						</InputSelect>
-						<a href="/" target="_blank">&nbsp<span class="oi oi-plus"></span></a>
+						<button type="button" @onclick="OpenModalSupermarket">&nbsp<span class="oi oi-plus"></span></button>
 					</div>
 					<ValidationMessage For="@(() => Nota.Supermarket)" />
 				</div>

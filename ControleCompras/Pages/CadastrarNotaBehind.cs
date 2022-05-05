@@ -35,6 +35,9 @@ namespace ControleCompras.Pages
 
 		protected Modal Modal { get; set; }
 
+		protected Modal ModalSupermarket { get; set; }
+		protected Modal ModalProduct { get; set; }
+
 		protected NotaItens NotaItens;
 
 		protected IEnumerable<Product> ListProducts;
@@ -131,7 +134,7 @@ namespace ControleCompras.Pages
 
 				nota.NotaItens = Nota.NotaItens;
 
-				await _notaService.Insert(nota);
+				await _notaService.InsertOrUpdate(nota);
 				Nota = new();
 				await ReloadEvent.InvokeAsync();
 				AlertEdicao.ShowSuccessMessage(Msg.Save);
@@ -147,6 +150,16 @@ namespace ControleCompras.Pages
 			{
 				StateHasChanged();
 			}
+		}
+
+		protected void OpenModalSupermarket()
+		{
+			ModalSupermarket.Open();
+		}
+
+		protected void OpenModalProduct()
+		{
+			ModalProduct.Open();
 		}
 	}
 }

@@ -22,7 +22,7 @@ namespace ControleCompras.Models
 		public List<NotaItens> NotaItens { get; set; }
 	}
 
-	public class NotaItens
+	public class NotaItens : EntityBase
 	{
 		[Required(ErrorMessageResourceType = typeof(Msg), ErrorMessageResourceName = ErrorMessageConstant.Required)]
 		public string Product { get; set; }
@@ -36,5 +36,7 @@ namespace ControleCompras.Models
 		[Required(ErrorMessageResourceType = typeof(Msg), ErrorMessageResourceName = ErrorMessageConstant.Required)]
 		[Range(0.01, int.MaxValue, ErrorMessageResourceType = typeof(Msg), ErrorMessageResourceName = ErrorMessageConstant.ValueInvalid)]
 		public decimal ValorUnitario { get; set; }
+
+		public Guid NotaId { get; set; }
 	}
 }

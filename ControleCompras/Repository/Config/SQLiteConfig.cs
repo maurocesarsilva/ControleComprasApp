@@ -31,17 +31,36 @@ namespace ControleCompras.Repository.Config
 			await Task.CompletedTask;
 			Database.Insert(obj);
 		}
+
+		public async Task InsertOrReplace(T obj)
+		{
+			await Task.CompletedTask;
+			Database.InsertOrReplace(obj);
+		}
+
+		public async Task InsertMany(IEnumerable<T> obj)
+		{
+			await Task.CompletedTask;
+			Database.InsertAll(obj);
+		}
+
 		public async Task Update(T obj)
 		{
 			await Task.CompletedTask;
 			Database.Update(obj);
 		}
 
+		public async Task UpdateMany(IEnumerable<T> obj)
+		{
+			await Task.CompletedTask;
+			Database.UpdateAll(obj);
+		}
+
 		public async Task Delete(Guid id)
 		{
 			await Task.CompletedTask;
-			var obj = Get(id);
-			Database.Delete(obj);
+			var nameTable = typeof(T).Name;
+			Database.Execute($"DELETE FROM {nameTable} WHERE Id = @id ", id);
 		}
 	}
 }

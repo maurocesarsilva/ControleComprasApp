@@ -74,7 +74,11 @@ namespace ControleCompras.Pages
 			{
 				Alert.ShowErrorMessage(ex.Message);
 			}
-		}
+			finally
+			{
+				ModalDelete.Close();
+			}
+}
 
 		protected void PrepareModalToSave()
 		{

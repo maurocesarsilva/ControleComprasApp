@@ -79,12 +79,22 @@ namespace ControleCompras.Pages
 			{
 				if (ListProductSelect.Any() is false) throw new Exception(Msg.NoRecordSelected);
 				ListAnalyse = await _analyzeService.Analyze(ListProductSelect);
-				BestPurchaseOption = ListAnalyse.FirstOrDefault(x => x.ValorNota == ListAnalyse.Min(m => m.ValorNota)).Supermarket;
-				StateHasChanged();
+
+				if (ListAnalyse.Any() is false)
+				{
+					Alert.ShowInfoMessage(String.Format(Msg.NotFound, "Produto"));
+				}
+
+				BestPurchaseOption = ListAnalyse.FirstOrDefault(x => x.ValorNota == ListAnalyse.Min(m => m.ValorNota))?.Supermarket;
+				
 			}
 			catch (Exception ex)
 			{
 				Alert.ShowErrorMessage(ex.Message);
+			}
+			finally
+			{
+				StateHasChanged();
 			}
 		}
 

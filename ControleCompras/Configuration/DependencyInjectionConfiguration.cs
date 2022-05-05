@@ -16,6 +16,7 @@ namespace ControleCompras.Configuration
 			services.AddTransient<INotaRepository, NotaRepository>();
 			services.AddTransient<INotaService, NotaService>();
 			services.AddTransient<IAnalyzeService, AnalyzeService>();
+			services.AddTransient<INotaItensRepository, NotaItensRepository>();
 		}
 	}
 }

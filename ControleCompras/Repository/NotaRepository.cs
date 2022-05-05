@@ -11,9 +11,9 @@ public class NotaRepository : SQLiteConfig<Nota>, INotaRepository
 		return Database.Table<Nota>().FirstOrDefault(f => f.Description == description);
 	}
 
-	public async Task<IEnumerable<Nota>> GetByProducts(IEnumerable<string> products)
+	public async Task<IEnumerable<Nota>> GetNota(IEnumerable<Guid> notaId)
 	{
 		await Task.CompletedTask;
-		return Database.Table<Nota>().ToList().Where(w => w.NotaItens.Where(n => products.Contains(n.Product)).Any());
+		return Database.Table<Nota>().Where(f => notaId.Contains(f.Id));
 	}
 }

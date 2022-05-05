@@ -1,8 +1,11 @@
 ﻿
+using SQLite;
+
 namespace ControleCompras.Models
 {
 	public class EntityBase
 	{
+		[PrimaryKey]
 		public Guid Id { get; set; }
 
 		public DateTime Date { get; set; }
@@ -10,7 +13,6 @@ namespace ControleCompras.Models
 		public EntityBase()
 		{
 			Date = DateTime.Now;
-			Id = Guid.NewGuid();
 		}
 	}
 }

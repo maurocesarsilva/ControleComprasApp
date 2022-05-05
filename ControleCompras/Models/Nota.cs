@@ -1,5 +1,6 @@
 ﻿using ControleCompras.Util;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ControleCompras.Models
 {
@@ -17,6 +18,7 @@ namespace ControleCompras.Models
 		[Required(ErrorMessageResourceType = typeof(Msg), ErrorMessageResourceName = ErrorMessageConstant.Required)]
 		public string Supermarket { get; set; }
 
+		[SQLite.Ignore] 
 		public List<NotaItens> NotaItens { get; set; }
 	}
 

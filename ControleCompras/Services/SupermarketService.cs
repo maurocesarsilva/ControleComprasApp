@@ -33,6 +33,7 @@ namespace ControleCompras.Services
 		{
 			if (supermarket.Id == default)
 			{
+				supermarket.Id = Guid.NewGuid();
 				var supermarketResult = await _supermercadoRepository.GetByName(supermarket.Name);
 
 				if (supermarketResult is not null) { throw new Exception(String.Format(Msg.ExisteRegister, "Supermercado")); }

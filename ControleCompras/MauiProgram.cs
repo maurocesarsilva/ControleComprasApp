@@ -21,6 +21,8 @@ public static class MauiProgram
 
 		builder.Services.DependencyInjection();
 
-		return builder.Build();
+		var app = builder.Build();
+
+		return app;
 	}
 }

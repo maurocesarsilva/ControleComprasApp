@@ -1,4 +1,5 @@
 ﻿using ControleCompras.Models;
+using ControleCompras.Repository;
 using ControleCompras.Services;
 using ControleCompras.Shared.Componentes;
 using ControleCompras.Util;
@@ -9,7 +10,7 @@ namespace ControleCompras.Pages
 	public class NotasBehind : ComponentBase
 	{
 		[Inject]
-		private INotaService _notaService { get; set; }
+		protected INotaService _notaService { get; set; }
 
 		protected Alert Alert { get; set; }
 
@@ -58,7 +59,7 @@ namespace ControleCompras.Pages
 			Nota = nota;
 			ModalDelete.Open();
 		}
-		
+
 		protected void Show(Nota nota)
 		{
 			Nota = nota;

@@ -11,6 +11,9 @@ namespace ControleCompras.Pages
 	{
 		[Inject]
 		private IProductService _productService { get; set; }
+		
+		[Inject]
+		private IProductRepository _productRepository { get; set; }
 
 		protected IEnumerable<Models.Product> ListProducts;
 

@@ -8,6 +8,7 @@ namespace ControleCompras.Repository
 		public async Task<Product> GetByName(string nome)
 		{
 			await Task.CompletedTask;
+
 			return Database.Table<Product>().FirstOrDefault(f => f.Name == nome);
 		}
 	}

@@ -1,9 +1,12 @@
 ﻿using ControleCompras.Models;
+using SQLite;
 
 namespace ControleCompras.Repository.Config
 {
 	public interface ISQLiteConfig<T> where T : EntityBase
 	{
+		public SQLiteConnection Database { get; set; }
+
 		Task<IEnumerable<T>> Get();
 
 		Task<T> Get(Guid id);
